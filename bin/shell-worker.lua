@@ -56,11 +56,17 @@ local function get_first_startup()
   return nil
 end
 
+local function get_sys_name()
+  local id = os.getComputerID()
+  local label = os.getComputerLabel()
+  return (label and label .. "-" or "unnamed-") .. id
+end
+
 local function show_prompt()
   term.setBackgroundColor(bgColour)
   term.setTextColour(promptColour)
   if term.getCursorPos() ~= 1 then print() end
-  write(shell.dir() .. "> ")
+  write(get_sys_name() .. " " .. shell.dir() .. "> ")
   term.setTextColour(textColour)
 end
 
